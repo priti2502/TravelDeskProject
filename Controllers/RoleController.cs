@@ -10,9 +10,9 @@ namespace TravelDesk.Controllers
     [ApiController]
     public class RoleController : ControllerBase
     {
-        private readonly UserDBContext _context; 
+        private readonly TravelDeskContext _context; 
 
-        public RoleController(UserDBContext context)
+        public RoleController(TravelDeskContext context)
         {
             _context = context;
         }

@@ -11,9 +11,9 @@ namespace TravelDesk.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly UserDBContext _context;
+        private readonly TravelDeskContext _context;
 
-        public DepartmentController(UserDBContext context)
+        public DepartmentController(TravelDeskContext context)
         {
             _context = context;
         }
@@ -24,5 +24,7 @@ namespace TravelDesk.Controllers
             var departments = await _context.Departments.ToListAsync();
             return Ok(departments);
         }
+
+       
     }
 }

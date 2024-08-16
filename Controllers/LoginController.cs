@@ -11,8 +11,8 @@ namespace TravelDesk.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        UserDBContext _context;
-        public LoginController(UserDBContext context)
+        TravelDeskContext _context;
+        public LoginController(TravelDeskContext context)
         {
             _context = context; 
         }

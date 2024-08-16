@@ -10,8 +10,8 @@ using TravelDesk.Context;
 
 namespace TravelDesk.Migrations
 {
-    [DbContext(typeof(UserDBContext))]
-    partial class UserDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TravelDeskContext))]
+    partial class TravelDeskContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,42 @@ namespace TravelDesk.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("TravelDesk.Models.AirBooking", b =>
+                {
+                    b.Property<int>("AirBookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AirBookingId"));
+
+                    b.Property<string>("AadharCardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FlightType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PassportFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassportNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VisaFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AirBookingId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("AirBookings");
+                });
 
             modelBuilder.Entity("TravelDesk.Models.Department", b =>
                 {
@@ -59,7 +95,7 @@ namespace TravelDesk.Migrations
                         {
                             DepartmentId = 1,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 7, 14, 1, 50, 762, DateTimeKind.Local).AddTicks(9558),
+                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8596),
                             DepartmentName = "IT",
                             IsActive = true
                         },
@@ -67,7 +103,7 @@ namespace TravelDesk.Migrations
                         {
                             DepartmentId = 2,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 7, 14, 1, 50, 762, DateTimeKind.Local).AddTicks(9563),
+                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8602),
                             DepartmentName = "HR",
                             IsActive = true
                         },
@@ -75,7 +111,7 @@ namespace TravelDesk.Migrations
                         {
                             DepartmentId = 3,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 7, 14, 1, 50, 762, DateTimeKind.Local).AddTicks(9565),
+                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8604),
                             DepartmentName = "Admin",
                             IsActive = true
                         },
@@ -83,10 +119,76 @@ namespace TravelDesk.Migrations
                         {
                             DepartmentId = 4,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 7, 14, 1, 50, 762, DateTimeKind.Local).AddTicks(9567),
+                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8606),
                             DepartmentName = "Travel",
                             IsActive = true
                         });
+                });
+
+            modelBuilder.Entity("TravelDesk.Models.Employee", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ProjectName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ReasonForTraveling")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeeId");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("TravelDesk.Models.HotelBooking", b =>
+                {
+                    b.Property<int>("HotelBookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelBookingId"));
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DaysOfStay")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("mealPreference")
+                        .HasColumnType("int");
+
+                    b.Property<int>("mealRequired")
+                        .HasColumnType("int");
+
+                    b.HasKey("HotelBookingId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("HotelBookings");
                 });
 
             modelBuilder.Entity("TravelDesk.Models.Role", b =>
@@ -126,7 +228,7 @@ namespace TravelDesk.Migrations
                         {
                             RoleId = 1,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 7, 14, 1, 50, 762, DateTimeKind.Local).AddTicks(9357),
+                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8375),
                             IsActive = true,
                             RoleName = "Admin"
                         },
@@ -134,7 +236,7 @@ namespace TravelDesk.Migrations
                         {
                             RoleId = 2,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 7, 14, 1, 50, 762, DateTimeKind.Local).AddTicks(9359),
+                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8380),
                             IsActive = true,
                             RoleName = "TravelAdmin"
                         },
@@ -142,7 +244,7 @@ namespace TravelDesk.Migrations
                         {
                             RoleId = 3,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 7, 14, 1, 50, 762, DateTimeKind.Local).AddTicks(9361),
+                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8382),
                             IsActive = true,
                             RoleName = "Manager"
                         },
@@ -150,80 +252,10 @@ namespace TravelDesk.Migrations
                         {
                             RoleId = 4,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 7, 14, 1, 50, 762, DateTimeKind.Local).AddTicks(9363),
+                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8384),
                             IsActive = true,
                             RoleName = "Employee"
                         });
-                });
-
-            modelBuilder.Entity("TravelDesk.Models.TravelRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AadharCard")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BookingType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DaysOfStay")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DepartmentName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MealPreference")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PassportNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProjectName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TravelDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TravelReason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisaFile")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TravelRequests");
                 });
 
             modelBuilder.Entity("TravelDesk.Models.User", b =>
@@ -296,17 +328,40 @@ namespace TravelDesk.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("TravelDesk.Models.AirBooking", b =>
+                {
+                    b.HasOne("TravelDesk.Models.Employee", "Employee")
+                        .WithMany("AirBookings")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("TravelDesk.Models.HotelBooking", b =>
+                {
+                    b.HasOne("TravelDesk.Models.Employee", "Employee")
+                        .WithMany("HotelBookings")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("TravelDesk.Models.User", b =>
                 {
                     b.HasOne("TravelDesk.Models.Department", "Department")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TravelDesk.Models.User", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("TravelDesk.Models.Role", "Role")
                         .WithMany("Users")
@@ -319,6 +374,18 @@ namespace TravelDesk.Migrations
                     b.Navigation("Manager");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("TravelDesk.Models.Department", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("TravelDesk.Models.Employee", b =>
+                {
+                    b.Navigation("AirBookings");
+
+                    b.Navigation("HotelBookings");
                 });
 
             modelBuilder.Entity("TravelDesk.Models.Role", b =>

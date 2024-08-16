@@ -5,14 +5,18 @@ using Microsoft.Extensions.Hosting;
 using TravelDesk.Context;
 using TravelDesk.Repositories;
 using Microsoft.EntityFrameworkCore;
+using TravelDeskWebApi.IRepo;
+using TravelDeskWebApi.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<UserDBContext>(options =>
+builder.Services.AddDbContext<TravelDeskContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+
+
 
 
 
