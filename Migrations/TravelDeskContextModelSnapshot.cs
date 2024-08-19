@@ -95,7 +95,7 @@ namespace TravelDesk.Migrations
                         {
                             DepartmentId = 1,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8596),
+                            CreatedOn = new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6752),
                             DepartmentName = "IT",
                             IsActive = true
                         },
@@ -103,7 +103,7 @@ namespace TravelDesk.Migrations
                         {
                             DepartmentId = 2,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8602),
+                            CreatedOn = new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6754),
                             DepartmentName = "HR",
                             IsActive = true
                         },
@@ -111,7 +111,7 @@ namespace TravelDesk.Migrations
                         {
                             DepartmentId = 3,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8604),
+                            CreatedOn = new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6756),
                             DepartmentName = "Admin",
                             IsActive = true
                         },
@@ -119,7 +119,7 @@ namespace TravelDesk.Migrations
                         {
                             DepartmentId = 4,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8606),
+                            CreatedOn = new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6757),
                             DepartmentName = "Travel",
                             IsActive = true
                         });
@@ -228,7 +228,7 @@ namespace TravelDesk.Migrations
                         {
                             RoleId = 1,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8375),
+                            CreatedOn = new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6567),
                             IsActive = true,
                             RoleName = "Admin"
                         },
@@ -236,7 +236,7 @@ namespace TravelDesk.Migrations
                         {
                             RoleId = 2,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8380),
+                            CreatedOn = new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6570),
                             IsActive = true,
                             RoleName = "TravelAdmin"
                         },
@@ -244,7 +244,7 @@ namespace TravelDesk.Migrations
                         {
                             RoleId = 3,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8382),
+                            CreatedOn = new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6572),
                             IsActive = true,
                             RoleName = "Manager"
                         },
@@ -252,7 +252,7 @@ namespace TravelDesk.Migrations
                         {
                             RoleId = 4,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 8, 16, 13, 6, 36, 331, DateTimeKind.Local).AddTicks(8384),
+                            CreatedOn = new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6574),
                             IsActive = true,
                             RoleName = "Employee"
                         });

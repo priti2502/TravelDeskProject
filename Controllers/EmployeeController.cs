@@ -117,21 +117,40 @@ namespace TravelDesk.Controllers
             return Ok(new { Message = "Employee information and files uploaded successfully." });
         }
                // Additional actions to get employee details
-                [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmployeeById(int id)
-        {
-            var employee = await _context.Employees
-                .Include(e => e.AirBookings)
-                .Include(e => e.HotelBookings)
-                .FirstOrDefaultAsync(e => e.EmployeeId == id);
+        //        [HttpGet("{id}")]
+        //public async Task<IActionResult> GetEmployeeById(int id)
+        //{
+        //    var employee = await _context.Employees
+        //        .Include(e => e.AirBookings)
+        //        .Include(e => e.HotelBookings)
+        //        .FirstOrDefaultAsync(e => e.EmployeeId == id);
 
-            if (employee == null)
+        //    if (employee == null)
+        //    {
+        //        return NotFound("Employee not found.");
+        //    }
+
+        //    return Ok(employee);
+        //}
+
+
+        [HttpGet("history/{employeeId}")]
+        public async Task<IActionResult> GetTravelHistoryByEmployeeId(int employeeId)
+        {
+            var travelRequests = await _context.Employees
+                .Where(tr => tr.EmployeeId == employeeId)
+                 .Include(e => e.AirBookings)
+                .Include(e => e.HotelBookings)
+                .ToListAsync();
+
+            if (travelRequests == null || !travelRequests.Any())
             {
-                return NotFound("Employee not found.");
+                return NotFound("No travel history found for this employee.");
             }
 
-            return Ok(employee);
+            return Ok(travelRequests);
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAllEmployee()
         {
@@ -141,7 +160,8 @@ namespace TravelDesk.Controllers
                                     .ToListAsync();
             return Ok(empList);
         }
-        
+
+
     }
 }
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelDesk.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class travelproject : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,23 @@ namespace TravelDesk.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ProjectName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DepartmentName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ReasonForTraveling = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -47,6 +64,54 @@ namespace TravelDesk.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.RoleId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AirBookings",
+                columns: table => new
+                {
+                    AirBookingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FlightType = table.Column<int>(type: "int", nullable: false),
+                    AadharCardNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PassportNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PassportFileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VisaFileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AirBookings", x => x.AirBookingId);
+                    table.ForeignKey(
+                        name: "FK_AirBookings_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HotelBookings",
+                columns: table => new
+                {
+                    HotelBookingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DaysOfStay = table.Column<int>(type: "int", nullable: false),
+                    mealRequired = table.Column<int>(type: "int", nullable: false),
+                    mealPreference = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HotelBookings", x => x.HotelBookingId);
+                    table.ForeignKey(
+                        name: "FK_HotelBookings_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,10 +163,10 @@ namespace TravelDesk.Migrations
                 columns: new[] { "DepartmentId", "CreatedBy", "CreatedOn", "DepartmentName", "IsActive", "ModifiedBy", "ModifiedOn" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 8, 16, 11, 56, 22, 140, DateTimeKind.Local).AddTicks(3101), "IT", true, null, null },
-                    { 2, 1, new DateTime(2024, 8, 16, 11, 56, 22, 140, DateTimeKind.Local).AddTicks(3106), "HR", true, null, null },
-                    { 3, 1, new DateTime(2024, 8, 16, 11, 56, 22, 140, DateTimeKind.Local).AddTicks(3107), "Admin", true, null, null },
-                    { 4, 1, new DateTime(2024, 8, 16, 11, 56, 22, 140, DateTimeKind.Local).AddTicks(3109), "Travel", true, null, null }
+                    { 1, 1, new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6752), "IT", true, null, null },
+                    { 2, 1, new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6754), "HR", true, null, null },
+                    { 3, 1, new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6756), "Admin", true, null, null },
+                    { 4, 1, new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6757), "Travel", true, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -109,11 +174,21 @@ namespace TravelDesk.Migrations
                 columns: new[] { "RoleId", "CreatedBy", "CreatedOn", "IsActive", "ModifiedBy", "ModifiedOn", "RoleName" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 8, 16, 11, 56, 22, 140, DateTimeKind.Local).AddTicks(2904), true, null, null, "Admin" },
-                    { 2, 1, new DateTime(2024, 8, 16, 11, 56, 22, 140, DateTimeKind.Local).AddTicks(2906), true, null, null, "TravelAdmin" },
-                    { 3, 1, new DateTime(2024, 8, 16, 11, 56, 22, 140, DateTimeKind.Local).AddTicks(2908), true, null, null, "Manager" },
-                    { 4, 1, new DateTime(2024, 8, 16, 11, 56, 22, 140, DateTimeKind.Local).AddTicks(2909), true, null, null, "Employee" }
+                    { 1, 1, new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6567), true, null, null, "Admin" },
+                    { 2, 1, new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6570), true, null, null, "TravelAdmin" },
+                    { 3, 1, new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6572), true, null, null, "Manager" },
+                    { 4, 1, new DateTime(2024, 8, 18, 19, 53, 55, 163, DateTimeKind.Local).AddTicks(6574), true, null, null, "Employee" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AirBookings_EmployeeId",
+                table: "AirBookings",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HotelBookings_EmployeeId",
+                table: "HotelBookings",
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_DepartmentId",
@@ -135,7 +210,16 @@ namespace TravelDesk.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AirBookings");
+
+            migrationBuilder.DropTable(
+                name: "HotelBookings");
+
+            migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Departments");
